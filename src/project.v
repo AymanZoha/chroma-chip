@@ -233,8 +233,8 @@ module tt_um_chroma_player (
   // The tallest bar sits at a position set by the note's pitch; neighbours fall off
   // with distance, the whole shape shrinks as the envelope decays.
   wire [3:0] center = note[3:0] + 4'd2 + {2'b00, note[4], 1'b0};
-  wire [3:0] dist   = (bar > center) ? (bar - center) : (center - bar);
-  wire [3:0] level  = (env > dist) ? (env - dist) : 4'd0;
+  wire [3:0] pitch_dist   = (bar > center) ? (bar - center) : (center - bar);
+  wire [3:0] level  = (env > pitch_dist) ? (env - pitch_dist) : 4'd0;
   wire [1:0] jitter = lfsr[1:0] ^ bar[1:0] ^ lfsr[5:4];
   wire [4:0] h_raw  = {1'b0, level} + ((level != 4'd0) ? {3'b000, jitter} : 5'd0);
   wire [3:0] height = h_raw[4] ? 4'd15 : h_raw[3:0];
