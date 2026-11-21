@@ -6,6 +6,10 @@ CHROMA is a custom ASIC I'm designing for [Tiny Tapeout](https://tinytapeout.com
 
 ![CHROMA running in cycle-accurate simulation](media/chroma_demo.gif)
 
+<img src="media/chroma_layout.png" alt="CHROMA physical layout (sky130)" width="360" align="right">
+
+**Right: the actual chip layout.** It's the GDS that LibreLane produced for SkyWater's 130 nm process: 1,022 standard cells in a 2-tile Tiny Tapeout slot of about 160 x 225 µm. The dense region is CHROMA's logic, and the rest is filler and decap cells.
+
 | Playing | Next track (new theme) | Paused |
 |---|---|---|
 | ![](media/screen_playing.png) | ![](media/screen_track2.png) | ![](media/screen_paused.png) |
