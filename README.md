@@ -41,7 +41,9 @@ Key design choices:
 - **Registered outputs.** The final pixel is registered so it lines up with the (registered) sync signals and the pins never glitch.
 - **One clock domain.** All animation advances on a one-cycle `frame_tick` enable. Nothing is clocked from a data signal.
 
-Size: ~1,400 logic gates and 94 flip-flops (generic Yosys synthesis), targeting 1x2 Tiny Tapeout tiles.
+**Physical implementation** (LibreLane, SkyWater sky130, 1x2 Tiny Tapeout tiles): **1,022 standard cells** including 94 flip-flops, 31% placement utilisation, 24.3 mm of routed wire. All Tiny Tapeout precheck checks pass, including Magic DRC, the KLayout FEOL/BEOL checks, and the pin, power and boundary checks. The post-layout gate-level netlist passes the same cocotb tests as the RTL.
+
+Interactive 3D view of the layout: https://aymanzoha.github.io/chroma-chip/
 
 ## Verification
 
@@ -54,6 +56,7 @@ Size: ~1,400 logic gates and 94 flip-flops (generic Yosys synthesis), targeting 
 | no color output during blanking | 0 errors |
 | note pitches (A4/C5/E5, A5 on the octave-up track) | 438/525/663/871 Hz vs. 440/523/659/880 Hz (measured by counting zero crossings) |
 | audio silent when paused | RMS = 0 |
+| gate-level (post-layout netlist) cocotb tests | pass |
 
 `test/` contains cocotb tests that run on both the RTL and the post-layout gate-level netlist in CI.
 
@@ -66,7 +69,7 @@ python sim/run_sim.py          # needs g++; writes media/*.png, *.gif, *.wav
 
 - [x] RTL: video timing, UI renderer, sequencer, synthesizer
 - [x] Cycle-accurate simulation + automated timing/audio checks
-- [ ] GDS (chip layout) via the Tiny Tapeout GitHub Action
+- [x] GDS (chip layout) via the Tiny Tapeout GitHub Action, with precheck and gate-level test passing
 - [ ] FPGA prototype driving a real VGA monitor + speaker
 - [ ] Handheld music-player PCB (KiCad) built around the chip
 - [ ] Tape out on a Tiny Tapeout shuttle, then bring up the silicon
